@@ -6,6 +6,8 @@ const hbs = require("hbs");
 const User = require("./models/user");
 const router=require("./router/userrout")
 require("./db/conn");
+const cookieParser=require("cookie-parser");
+const {json} =require('express');
 
 const port = process.env.PORT || 3000;
 
@@ -13,8 +15,11 @@ const staticPath = path.join(__dirname, "../public");
 const templatePath = path.join(__dirname, "../templates/views");
 const partialsPath = path.join(__dirname, "../templates/partials");
 
+app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(staticPath));
+app.use(cookieParser())
+
 app.set("view engine", "hbs");
 app.set("views", templatePath);
 hbs.registerPartials(partialsPath);
